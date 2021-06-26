@@ -4,6 +4,7 @@ class Player{
         this.distance = 0;
         this.index = null;
         this.lives = 3;
+        this.xPosition=0;
     }
 
     getPlayerCount(){
@@ -25,7 +26,8 @@ class Player{
         playerInfoRef.set({
             name: this.name,
             distance: this.distance,
-            lives: this.lives
+            lives: this.lives,
+            xPosition: this.xPosition
         })
     }
 
