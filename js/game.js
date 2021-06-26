@@ -41,7 +41,7 @@ class Game{
 
        ships = [spaceship, spaceship2];
 
-       laser = createSprite(spaceship.x, spaceship.y );
+       /*laser = createSprite(spaceship.x, spaceship.y );
        laser.addImage("laser", laserImage);
        laser.scale=0.3;
        laser.velocityY = spaceship.velocityY;
@@ -55,12 +55,15 @@ class Game{
        
 
        spaceship.depth = laser.depth + 1;
-       spaceship2.depth = laser2.depth + 1;
+       spaceship2.depth = laser2.depth + 1;*/
 
        
     }
 
     play(){
+
+        Player.getPlayerInfo();
+
         form.hide();
         image(background, 0, -displayHeight*4, displayWidth, displayHeight*5);
            textSize(30);
@@ -81,34 +84,48 @@ class Game{
 
           index = index + 1;
 
-          x = x + 200;
+          x = allPlayers[plr].xPosition;
             
           y = displayHeight - allPlayers[plr].distance;  
-          ships.x = x;
-          ships.y = y;
+          ships[index-1].x = x;
+          ships[index-1].y = y;
     
 
             if(index === player.index){
                 stroke(10);
                 fill("red");
-                ellipse(ships.x,ships.y,60,60);
+                ellipse(ships[index-1].x,ships[index-1].y,60,60);
                 camera.position.x = displayWidth/2;
-                camera.position.y = ships.y;
+                camera.position.y = ships[index-1].y;
             }
         
                 
               
         }
-        if(keyDown(RIGHT_ARROW)){
-            player.velocityX = 5;
+        if(keyDown(UP_ARROW)  ){
+            //player.velocityX = 5;
+            console.log("äaaaaaa");
+            player.distance+=5
             player.updateData();
-          }
+        }
 
-          if(keyDown(LEFT_ARROW)){
-            player.velocityX = -5;
+        if(keyDown(LEFT_ARROW)){
+            if(player.xPosition>20){
+                player.xPosition -= 5;    
+            }
             player.updateData();
+        }
+
+        if(keyDown(RIGHT_ARROW)){
+            if(player.xPosition<displayWidth - 20){
+                player.xPosition += 5;    
+            }
+            player.updateData();
+        }
+
+          //&& player.index !== null  
+          drawSprites();         
           }
-          //&& player.index !== null           
-          }
+   
     }
     
