@@ -4,6 +4,7 @@ var gameState = 0;
 var playerCount = 0;
 var allPlayers;
 var distance = 0;
+var xPosition = 0;
 var database;
 
 var form, player, game;
@@ -40,10 +41,11 @@ function draw(){
     game.updateGameState(1);
   }
   if(gameState === 1){
+    clear();
     game.play();
-    camera.position.x = displayWidth/2;
-    camera.position.y = ships.y;
-    distance = distance + Math.round(getFrameRate()/60);
+    //camera.position.x = displayWidth/2;
+    //camera.position.y = ships.y;
+    //distance = distance + Math.round(getFrameRate()/60);
   }
 
   
