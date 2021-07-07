@@ -19,12 +19,21 @@ class Game{
 
     async start(){
         if(gameState === 0){
-            player = new Player();
-            var playerCountRef = await database.ref('playerCount').once("value");
+           
+            if(playerCount === 0){
+                player = new Player(displayWidth/2 - 200);
+                 player.getPlayerCount();
+            }
+            else{
+                player = new Player(displayWidth/2 + 200);
+                player.getPlayerCount();
+            }
+            
+            /*var playerCountRef = await database.ref('playerCount').once("value");
             if(playerCountRef.exists()){
                 playerCount = playerCountRef.val();
                 player.getPlayerCount();
-            }
+            }*/
             
             form = new Form();
             form.display();
@@ -84,11 +93,20 @@ class Game{
 
           index = index + 1;
 
-          x = allPlayers[plr].xPosition;
-            
+
+          /*if(allPlayers[plr].xPosition === 0){
+           x = x + 200;
+           player.updateData();
+          }
+          else{
+           x = allPlayers[plr].xPosition;
+          }*/
+          
+          x = allPlayers[plr].xPosition;  
           y = displayHeight - allPlayers[plr].distance;  
           ships[index-1].x = x;
           ships[index-1].y = y;
+        
     
 
             if(index === player.index){
@@ -107,6 +125,7 @@ class Game{
             console.log("äaaaaaa");
             player.distance+=5
             player.updateData();
+            alieni.y+=5;
         }
 
         if(keyDown(LEFT_ARROW)){
@@ -123,9 +142,42 @@ class Game{
             player.updateData();
         }
 
-          //&& player.index !== null  
+        
+         this.spawnAliens();
+           
           drawSprites();         
           }
+
+          
+          spawnAliens(){
+              console.log("aliens")
+            if(frameCount%60 === 0){
+              alieni = createSprite(500, -displayHeight - 10, 50, 50);
+              alieni.scale=0.5;
+              alieni.velocityY = 6;
+              alieni.x = Math.round(random(200, displayWidth - 200));
+              
+              var rand = Math.round(random(1,3));
+              if(rand === 1){
+                alieni.addImage(alien1);
+              }
+              if(rand === 2){
+                alieni.addImage(alien2);
+              }
+        
+              if(rand === 3){
+                alieni.addImage(alien3);
+              }
+              
+              
+              
+              //assign scale and lifetime to the obstacle           
+              
+              //add each obstacle to the group
+              
+            }
+          
+            }
    
-    }
+        }
     
